@@ -32,4 +32,4 @@ if(CMAKE_CONFIGURATION_TYPES)
 	set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES}" CACHE STRING "Reset the configurations to what we need" FORCE)
 endif()
 
-add_directory(nodecalc)
+add_subdirectory(nodecalc)
