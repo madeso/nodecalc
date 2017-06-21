@@ -1,0 +1,3 @@
+[submodule "external/wxutil"]
+	path = external/wxutil
+	url = https://github.com/madeso/wxutil.git
