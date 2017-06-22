@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1.0)
 set_property(GLOBAL PROPERTY USE_FOLDERS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-project(wxutil)
+project(nodecalc)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 14)
