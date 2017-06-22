@@ -1,3 +1,5 @@
+syntax = "proto2";
+
 message Value {
   optional float x = 1001;
   optional float y = 1002;
