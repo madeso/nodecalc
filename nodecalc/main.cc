@@ -2,6 +2,8 @@
 // For compilers that support precompilation, includes "wx/wx.h".
 #include "wx.h"
 
+#include "graph/graph.h"
+
 class MyApp: public wxApp
 {
  public:
@@ -16,20 +18,12 @@ class MyFrame: public wxFrame
   void OnSelectColor(wxCommandEvent &event);
   void OnExit(wxCommandEvent& event);
   void OnAbout(wxCommandEvent& event);
- wxDECLARE_EVENT_TABLE();
 };
 
 enum
 {
   ID_SelectColor = 1
 };
-
-wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
-        EVT_MENU(ID_SelectColor,   MyFrame::OnSelectColor)
-        EVT_MENU(wxID_EXIT,  MyFrame::OnExit)
-        EVT_MENU(wxID_ABOUT, MyFrame::OnAbout)
-wxEND_EVENT_TABLE()
-wxIMPLEMENT_APP(MyApp);
 
 bool MyApp::OnInit()
 {
@@ -38,9 +32,16 @@ bool MyApp::OnInit()
   return true;
 }
 
+wxIMPLEMENT_APP(MyApp);
+
 MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
     : wxFrame(NULL, wxID_ANY, title, pos, size)
 {
+
+  Bind(wxEVT_MENU, &MyFrame::OnSelectColor, this, ID_SelectColor);
+  Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
+  Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
+
   wxMenu *menuFile = new wxMenu;
   menuFile->Append(ID_SelectColor, "&Select color...\tCtrl-S", "");
   menuFile->AppendSeparator();
@@ -51,8 +52,17 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
   menuBar->Append( menuFile, "&File" );
   menuBar->Append( menuHelp, "&Help" );
   SetMenuBar( menuBar );
+
   CreateStatusBar();
   SetStatusText( "Welcome to wxWidgets!" );
+
+  wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
+
+  Graph* graph = new Graph( this );
+  sizer->Add(graph, 1, wxEXPAND);
+
+  SetSizer(sizer);
+  SetAutoLayout(true);
 }
 
 void MyFrame::OnExit(wxCommandEvent& event)

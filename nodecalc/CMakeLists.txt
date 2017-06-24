@@ -1,9 +1,19 @@
-set(main_src main.cc proto.h proto.cc)
+set(main_src
+    proto.h
+    proto.cc
+    main.cc
+    )
 source_group("" FILES ${main_src})
 set(src ${main_src})
 
 
-
+set(graph_src
+    ${CMAKE_SOURCE_DIR}/external/wxutil/graph/graph.cc
+    ${CMAKE_SOURCE_DIR}/external/wxutil/graph/graph.h
+    )
+source_group("graph" FILES ${graph_src})
+include_directories(${CMAKE_SOURCE_DIR}/external/wxutil/)
+set(src ${src} ${graph_src})
 
 
 set(pbjson_src
@@ -64,7 +74,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${CMAKE_SOURCE_DIR}/nodecalc.proto)
 set(generated_proto ${PROTO_SRCS} ${PROTO_HDRS})
 source_group("generated" FILES ${generated_proto})
-set(src ${src} ${generated_proto})
+set(src ${src} ${generated_proto} ../external/wxutil/graph/graph.cc ../external/wxutil/graph/graph.h)
 
 
 
