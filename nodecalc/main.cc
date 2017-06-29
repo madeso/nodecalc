@@ -15,14 +15,16 @@ class MyFrame: public wxFrame
  public:
   MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
  private:
-  void OnSelectColor(wxCommandEvent &event);
+  void OnDeleteSelected(wxCommandEvent &event);
   void OnExit(wxCommandEvent& event);
   void OnAbout(wxCommandEvent& event);
+
+  Graph* graph;
 };
 
 enum
 {
-  ID_SelectColor = 1
+  ID_DeleteSelected = 1
 };
 
 bool MyApp::OnInit()
@@ -35,15 +37,15 @@ bool MyApp::OnInit()
 wxIMPLEMENT_APP(MyApp);
 
 MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
-    : wxFrame(NULL, wxID_ANY, title, pos, size)
+    : wxFrame(NULL, wxID_ANY, title, pos, size), graph(nullptr)
 {
 
-  Bind(wxEVT_MENU, &MyFrame::OnSelectColor, this, ID_SelectColor);
+  Bind(wxEVT_MENU, &MyFrame::OnDeleteSelected, this, ID_DeleteSelected);
   Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
   Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
 
   wxMenu *menuFile = new wxMenu;
-  menuFile->Append(ID_SelectColor, "&Select color...\tCtrl-S", "");
+  menuFile->Append(ID_DeleteSelected, "&Delete selected item...\tDelete", "");
   menuFile->AppendSeparator();
   menuFile->Append(wxID_EXIT);
   wxMenu *menuHelp = new wxMenu;
@@ -58,7 +60,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 
   wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
 
-  Graph* graph = new Graph( this );
+  graph = new Graph( this );
   sizer->Add(graph, 1, wxEXPAND);
 
   SetSizer(sizer);
@@ -76,6 +78,7 @@ void MyFrame::OnAbout(wxCommandEvent& event)
                 "About Hello World", wxOK | wxICON_INFORMATION );
 }
 
-void MyFrame::OnSelectColor(wxCommandEvent &event)
+void MyFrame::OnDeleteSelected(wxCommandEvent &event)
 {
+  graph->DeleteSelected();
 }
