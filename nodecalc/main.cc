@@ -49,7 +49,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 
   wxMenu *menuFile = new wxMenu;
   menuFile->Append(ID_DeleteSelected, "&Delete selected item...\tDelete", "");
-  menuFile->Append(ID_LinkNodes, "&Link nodes...\tDelete", "");
+  menuFile->Append(ID_LinkNodes, "&Link nodes...\tCtrl-L", "");
   menuFile->AppendSeparator();
   menuFile->Append(wxID_EXIT);
   wxMenu *menuHelp = new wxMenu;
