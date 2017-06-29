@@ -16,6 +16,7 @@ class MyFrame: public wxFrame
   MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
  private:
   void OnDeleteSelected(wxCommandEvent &event);
+  void OnLinkNodes(wxCommandEvent &event);
   void OnExit(wxCommandEvent& event);
   void OnAbout(wxCommandEvent& event);
 
@@ -24,7 +25,8 @@ class MyFrame: public wxFrame
 
 enum
 {
-  ID_DeleteSelected = 1
+  ID_DeleteSelected = 1,
+  ID_LinkNodes
 };
 
 bool MyApp::OnInit()
@@ -41,11 +43,13 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 {
 
   Bind(wxEVT_MENU, &MyFrame::OnDeleteSelected, this, ID_DeleteSelected);
+  Bind(wxEVT_MENU, &MyFrame::OnLinkNodes, this, ID_LinkNodes);
   Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
   Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
 
   wxMenu *menuFile = new wxMenu;
   menuFile->Append(ID_DeleteSelected, "&Delete selected item...\tDelete", "");
+  menuFile->Append(ID_LinkNodes, "&Link nodes...\tDelete", "");
   menuFile->AppendSeparator();
   menuFile->Append(wxID_EXIT);
   wxMenu *menuHelp = new wxMenu;
@@ -82,3 +86,9 @@ void MyFrame::OnDeleteSelected(wxCommandEvent &event)
 {
   graph->DeleteSelected();
 }
+
+void MyFrame::OnLinkNodes(wxCommandEvent &event)
+{
+  graph->LinkNodes();
+}
+
